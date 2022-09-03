@@ -22,7 +22,6 @@ app.get('/characters', async(req, res) => {
 
 app.get('/characters/:id', async (req, res) => {
     const connection = await mysql.createConnection(process.env.DATABASE_URL);    
-
     let status = 200;
     let retVal = {};
     const {id} = req.params;
@@ -37,9 +36,7 @@ app.get('/characters/:id', async (req, res) => {
         retVal = err;
     } finally {
         res.status(status).json(retVal)
+        return res
     }
 })
 
-app.listen(3001, () => {
-    console.log("App is listening")
-})
