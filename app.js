@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import mysql from 'mysql2/promise'
 
 dotenv.config();
+const connection = await mysql.createConnection(process.env.DATABASE_URL);    
 const app = express();
 
 app.get('/', (req, res) => {
@@ -10,7 +11,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/characters', async(req, res) => {
-    const connection = await mysql.createConnection(process.env.DATABASE_URL);    
     try {
         const query = "SELECT * FROM hp_character";
         const [rows] = await connection.query(query)
@@ -21,7 +21,6 @@ app.get('/characters', async(req, res) => {
 })
 
 app.get('/characters/:id', async (req, res) => {
-    const connection = await mysql.createConnection(process.env.DATABASE_URL);    
     let status = 200;
     let retVal = {};
     const {id} = req.params;
@@ -36,8 +35,9 @@ app.get('/characters/:id', async (req, res) => {
         retVal = err;
     } finally {
         res.status(status).json(retVal)
-        console.log(res)
-        return res
     }
 })
 
+app.listen(3001, () => {
+    console.log("App is listening")
+})
