@@ -36,6 +36,7 @@ app.get('/characters/:id', async (req, res) => {
         retVal = err;
     } finally {
         res.status(status).json(retVal)
+        console.log(res)
         return res
     }
 })
