@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "app": "nodemon app.js",
     "seed": "node seed/seed.js"
   },
   "type": "module",
